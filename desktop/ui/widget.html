@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN" class="desktop">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API 余额小鲸鱼</title><script src="/theme.js"></script>
+<link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/ui.css"><link rel="stylesheet" href="/chat.css"><link rel="stylesheet" href="/quota.css"><link rel="stylesheet" href="/pet.css"><link rel="stylesheet" href="/agents.css">
+<script src="/toast.js" defer></script><script src="/money.js" defer></script><script src="/render.js" defer></script><script src="/media-guard.js" defer></script><script src="/turn-notice.js" defer></script><script src="/usage-presentation.js" defer></script><script src="/quota-presentation.js" defer></script><script src="/usage-client.js" defer></script><script src="/bubble-queue.js" defer></script><script src="/pet-geometry.js" defer></script><script src="/agents.js" defer></script><script src="/dsh-whale/widget.js" defer></script><script src="/input.js" defer></script>
+<script type="module" src="/chat.js"></script>
+<script type="module" src="/quota.js"></script>
+</head><body>
+  <section id="chat-composer" class="chat-composer" aria-label="角色会话" hidden>
+    <header class="chat-header"><strong>会话</strong><button id="chat-show-conversations" type="button" class="chat-chip" aria-expanded="false" aria-controls="chat-conversations">列表</button><button id="chat-show-history" type="button" class="chat-chip" aria-expanded="false" aria-controls="chat-history">记录</button><button id="chat-new" type="button" class="icon-button" aria-label="新会话" title="建立新会话并保留旧会话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><button id="chat-open-settings" type="button" class="icon-button" aria-label="会话设置" title="会话设置"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button><button id="chat-close" type="button" class="icon-button" aria-label="关闭会话" title="关闭会话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div id="chat-conversations" class="chat-conversations" aria-label="会话列表" hidden></div>
+    <div id="chat-history" class="chat-history" hidden></div>
+    <textarea id="chat-input" aria-label="消息" rows="2" maxlength="16000" placeholder="说点什么…（Enter 发送，Shift+Enter 换行）"></textarea>
+    <footer class="chat-footer"><div class="chat-footer-info"><div id="chat-billing" class="chat-billing" aria-label="会话消费与余额"><span data-chat-spent>本地30天 --</span><span data-chat-balance>余额 --</span><button type="button" class="chat-billing-refresh" aria-label="刷新会话消费与余额" title="刷新会话消费与余额">↻</button></div><span id="chat-status" role="status"></span></div><button id="chat-stop" type="button" hidden>停止</button><button id="chat-send" type="button">发送</button></footer>
+  </section>
+  <div id="chat-timer" class="chat-timer" role="status" hidden></div>
+  <section id="chat-reply" class="chat-reply" aria-label="角色回复" hidden><button id="chat-reply-close" type="button" class="icon-button" aria-label="收起回复" title="收起回复"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button><div id="chat-output" class="chat-output" role="log" aria-live="off" aria-busy="false"></div></section>
+  <dialog id="chat-settings" aria-labelledby="chat-settings-title">
+    <form id="chat-settings-form">
+      <header class="dialog-header"><h2 id="chat-settings-title">会话设置</h2><button id="chat-settings-close" type="button" class="icon-button" aria-label="关闭会话设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+      <div id="chat-settings-error" class="notice" role="alert" hidden></div>
+      <div class="field-grid"><label>大肥鱼账户<select name="accountId" required></select></label><label>模型名称<input name="model" required maxlength="200" autocomplete="off"></label></div>
+      <div class="chat-account-state"><span id="chat-key-state"></span><button id="chat-manage-accounts" type="button" class="quiet">额度管理…</button></div>
+      <label>角色人设<textarea name="persona" maxlength="16000" rows="5"></textarea></label>
+      <label>最长回复长度（输出 token）<input name="maxTokens" type="number" min="1" max="32768" step="1" required></label>
+      <fieldset class="chat-activity-settings"><legend>主动闲聊</legend>
+        <label class="check"><input name="proactiveEnabled" type="checkbox"> 在指定时间内偶尔主动聊天</label>
+        <div class="field-grid"><label>开始时间<input name="proactiveStart" type="time" required></label><label>结束时间<input name="proactiveEnd" type="time" required></label></div>
+        <div class="field-grid"><label>最短间隔（分钟）<input name="proactiveMin" type="number" min="15" max="240" required></label><label>最长间隔（分钟）<input name="proactiveMax" type="number" min="15" max="360" required></label></div>
+        <label>每天最多主动聊天次数<input name="proactiveLimit" type="number" min="1" max="12" required></label>
+        <label>主动消息最长回复（输出 token）<input name="backgroundMaxTokens" type="number" min="1" max="32768" step="1" required><small>用于主动闲聊和番茄钟提醒。思考模型的思考过程也计入，设得太小回复会被截断。</small></label>
+      </fieldset>
+      <div class="dialog-actions"><button id="chat-settings-cancel" type="button" class="quiet">取消</button><button id="chat-settings-save" type="submit" class="primary">保存设置</button></div>
+    </form>
+  </dialog>
+  <dialog id="quota-manager" class="quota-manager" aria-labelledby="quota-manager-title">
+    <div class="quota-manager-frame">
+      <header class="dialog-header"><div><h2 id="quota-manager-title">额度管理</h2><p>订阅额度、API 账户和它们的密钥都在这里，改动立即生效。</p></div>
+        <label class="quota-currency">金额显示<select data-quota-currency aria-label="金额显示币种"><option value="">原币种</option><option value="USD">美元 USD</option><option value="CNY">人民币 CNY</option></select></label>
+        <button type="button" class="icon-button" data-quota-close aria-label="关闭额度管理"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+      <nav class="quota-tabs" role="tablist" aria-label="额度管理" data-quota-tabs><button type="button" role="tab" data-tab="accounts">账户</button><button type="button" role="tab" data-tab="records">记录</button><button type="button" role="tab" data-tab="alerts">提醒</button></nav>
+      <div class="notice" role="alert" data-quota-error hidden></div>
+      <div data-quota-body></div>
+    </div>
+  </dialog>
+  <div id="toast" role="status" hidden></div>
+</body></html>

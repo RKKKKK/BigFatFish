@@ -1,0 +1,20 @@
+#!/bin/zsh
+set -u
+
+ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+cd "$ROOT"
+
+NODE_BIN=""
+for candidate in /opt/homebrew/bin/node /usr/local/bin/node "$HOME"/.cache/codex-runtimes/*/dependencies/node/bin/node(N); do
+  if [[ -x "$candidate" ]]; then NODE_BIN="$candidate"; break; fi
+done
+
+if [[ -z "$NODE_BIN" ]]; then
+  /usr/bin/osascript -e 'display alert "无法启动桌面挂件" message "未找到可用的 Node.js 24+。请先安装 Homebrew Node.js，或从 Codex 内运行此项目。" as critical'
+  exit 1
+fi
+
+if ! "$NODE_BIN" scripts/control.mjs open; then
+  /usr/bin/osascript -e 'display alert "无法启动桌面挂件" message "请确认已先运行安装 Mac 开机自启.command。" as critical'
+  exit 1
+fi

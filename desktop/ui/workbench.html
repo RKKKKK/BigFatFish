@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN" class="desktop">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大肥鱼 · 工作台</title>
+<link rel="stylesheet" href="/workbench.css">
+<script type="module" src="/workbench.js"></script>
+</head>
+<body>
+<div class="wb-app">
+  <header class="wb-titlebar">
+    <div class="wb-brand">
+      <span class="wb-brand-mark">BF</span>
+      <div><b>大肥鱼</b><small>WORKBENCH / 0.3.0</small></div>
+    </div>
+    <nav class="wb-tabs" role="tablist" aria-label="工作台">
+      <button type="button" role="tab" data-tab="tasks" aria-selected="true" class="on">任务</button>
+      <button type="button" role="tab" data-tab="memory" aria-selected="false">记忆</button>
+      <button type="button" role="tab" data-tab="settings" aria-selected="false">设置</button>
+    </nav>
+    <div class="wb-title-status">
+      <button id="wb-palette-open" type="button" class="wb-palette-hint"><span>Ctrl K</span> 搜索</button>
+      <span id="wb-clock" class="wb-clock">--:--</span>
+      <span class="wb-live"><i></i>LOCAL</span>
+    </div>
+    <div class="wb-window-controls">
+      <button type="button" data-window="minimize" aria-label="最小化">—</button>
+      <button type="button" data-window="maximize" aria-label="最大化">□</button>
+      <button type="button" data-window="close" class="danger" aria-label="关闭工作台">×</button>
+    </div>
+  </header>
+
+  <main class="wb-main">
+    <section class="wb-cockpit" data-panel="tasks">
+      <aside class="wb-left">
+        <div class="wb-pet-card">
+          <div class="wb-pet-glow"></div>
+          <img src="/assets/DSniang1.png" alt="大肥鱼" class="wb-pet">
+          <div class="wb-pet-meta"><span>本鱼在线</span><small id="wb-pet-status">正在读取任务…</small></div>
+        </div>
+        <div class="wb-left-head">
+          <h2>任务监控</h2>
+          <span id="wb-dsh-state" class="wb-note">—</span>
+        </div>
+        <div id="wb-drafts" class="wb-drafts" hidden></div>
+        <div id="wb-filters" class="wb-filters" role="group" aria-label="按工具筛选">
+          <button type="button" data-filter="all" class="on">全部</button>
+          <button type="button" data-filter="codex">Codex</button>
+          <button type="button" data-filter="dsh">DSH</button>
+          <button type="button" data-filter="claude">Claude</button>
+        </div>
+        <div id="wb-list" class="wb-list" aria-label="任务列表"></div>
+        <div class="wb-left-foot">
+          <button id="wb-report-open" type="button" class="wb-quiet">今日复盘</button>
+          <button id="wb-refresh" type="button" class="wb-quiet">刷新</button>
+        </div>
+      </aside>
+
+      <section class="wb-center">
+        <div class="wb-canvas">
+          <header class="wb-canvas-head">
+            <div class="wb-canvas-tabs" role="tablist" aria-label="任务视图">
+              <button type="button" role="tab" data-view="detail" aria-selected="true" class="on">详情</button>
+              <button type="button" role="tab" data-view="board" aria-selected="false">看板</button>
+              <button type="button" role="tab" data-view="timeline" aria-selected="false">时间轴</button>
+            </div>
+            <span id="wb-view-hint" class="wb-note">当前任务</span>
+          </header>
+          <div class="wb-canvas-body">
+            <article id="wb-detail" class="wb-detail" aria-live="polite"></article>
+            <section id="wb-board" class="wb-board" hidden aria-label="任务看板"></section>
+            <section id="wb-timeline" class="wb-timeline" hidden aria-label="任务时间轴"></section>
+          </div>
+        </div>
+        <section class="wb-chat" aria-label="和本鱼聊天">
+          <header class="wb-chat-head">
+            <div class="wb-chat-title"><i class="wb-chat-dot"></i><b>和本鱼说话</b><small id="wb-chat-status">共享当前角色会话</small></div>
+            <div class="wb-chat-tools">
+              <select id="wb-chat-conversations" aria-label="切换会话"></select>
+              <button id="wb-chat-new" type="button" title="新会话" aria-label="新会话">＋</button>
+            </div>
+          </header>
+          <div id="wb-chat-log" class="wb-chat-log" role="log" aria-live="polite"><div class="wb-chat-empty">正在读取会话…</div></div>
+          <form id="wb-chat-form" class="wb-chat-form">
+            <textarea id="wb-chat-input" rows="1" maxlength="16000" placeholder="说点什么…（Enter 发送，Shift+Enter 换行）" aria-label="消息"></textarea>
+            <div class="wb-chat-actions">
+              <button id="wb-chat-stop" type="button" hidden>停止</button>
+              <button id="wb-chat-send" type="submit" class="wb-primary">发送</button>
+            </div>
+          </form>
+        </section>
+      </section>
+
+      <aside class="wb-right">
+        <div id="wb-summary" class="wb-summary"></div>
+        <section class="wb-card">
+          <header><h3>长期记忆</h3><button id="wb-right-memory-open" type="button">管理</button></header>
+          <div id="wb-right-memory" class="wb-right-memory"><span class="wb-muted">正在读取…</span></div>
+        </section>
+        <section class="wb-card wb-pulse-card">
+          <header><h3>今日节奏</h3><span id="wb-runner-info" class="wb-note">—</span></header>
+          <div id="wb-rhythm" class="wb-rhythm" aria-label="今日任务节奏"></div>
+          <div class="wb-pulse-line"></div>
+          <div id="wb-limits" class="wb-limits"></div>
+        </section>
+        <section class="wb-card wb-recent-card">
+          <header><h3>最近完成</h3></header>
+          <div id="wb-recent" class="wb-recent"><span class="wb-muted">暂无</span></div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="wb-panel" data-panel="memory" hidden>
+      <div class="wb-memory">
+        <div class="wb-memory-head">
+          <div><h2>长期记忆</h2><p id="wb-memory-budget" class="wb-muted">正在读取…</p></div>
+          <div class="wb-memory-actions">
+            <button id="wb-memory-consolidate" type="button" class="wb-secondary">立即整理</button>
+            <button id="wb-memory-import" type="button" class="wb-secondary">从历史初始化</button>
+            <button id="wb-memory-clear" type="button" class="wb-quiet">清空</button>
+          </div>
+        </div>
+        <div id="wb-memory-error" class="wb-error" role="alert" hidden></div>
+        <div id="wb-memory-list" class="wb-memory-list"></div>
+        <form id="wb-memory-add" class="wb-memory-add">
+          <select id="wb-memory-section" aria-label="记忆分组"></select>
+          <input id="wb-memory-text" maxlength="160" autocomplete="off" placeholder="记一条长期有用的事，例如：以后回复先给结论">
+          <label class="wb-check"><input id="wb-memory-pinned" type="checkbox"> 重要</label>
+          <button type="submit" class="wb-primary">记住</button>
+        </form>
+        <p class="wb-muted">只记跨对话仍然有用的称呼、偏好、长期要求、项目和决定；不记一次性任务和密钥。上限 4 KB / 40 条。</p>
+      </div>
+    </section>
+
+    <section class="wb-panel" data-panel="settings" hidden>
+      <form id="wb-settings" class="wb-settings">
+        <div class="wb-setting">
+          <label for="wb-roots">允许下发任务的工作目录</label>
+          <textarea id="wb-roots" rows="4" spellcheck="false" placeholder="每行一个绝对路径，例如：&#10;D:\projects&#10;C:\Users\Lenovo\Documents\work"></textarea>
+          <small>对话里下发的 Codex / DSH 任务只能在这些目录里启动。留空则暂不允许下发。</small>
+        </div>
+        <div class="wb-setting">
+          <label>背景图</label>
+          <div class="wb-wallpaper-actions">
+            <button id="wb-wallpaper-pick" type="button" class="wb-secondary">选择本地图片</button>
+            <button id="wb-wallpaper-clear" type="button" class="wb-quiet">恢复纯黑</button>
+            <small>图片只保存在本机；面板保持半透明。建议使用深色、低对比的图。</small>
+          </div>
+          <input id="wb-wallpaper-input" type="file" accept="image/*" hidden>
+        </div>
+        <div class="wb-setting-row">
+          <label class="wb-check"><input id="wb-read-content" type="checkbox"> 读取任务内容用于摘要</label>
+          <label class="wb-check"><input id="wb-confirm" type="checkbox"> 下发前需要确认</label>
+          <label class="wb-check"><input id="wb-auto-memory" type="checkbox"> 自动整理长期记忆</label>
+        </div>
+        <div class="wb-setting-row">
+          <label for="wb-concurrent">同时运行的任务数<input id="wb-concurrent" type="number" min="1" max="4" step="1"></label>
+          <label for="wb-timeout">任务超时（分钟）<input id="wb-timeout" type="number" min="1" max="120" step="1"></label>
+          <label for="wb-sandbox">Codex 沙箱
+            <select id="wb-sandbox">
+              <option value="workspace-write">workspace-write（推荐）</option>
+              <option value="read-only">read-only</option>
+              <option value="danger-full-access">danger-full-access（不推荐）</option>
+            </select>
+          </label>
+          <label for="wb-digest">每日复盘时间<input id="wb-digest" type="time"></label>
+        </div>
+        <p class="wb-muted">这些设置会保存到本地。下发和记忆功能会直接使用它们。</p>
+        <div class="wb-setting-actions">
+          <span id="wb-settings-status" class="wb-note" role="status"></span>
+          <button type="submit" class="wb-primary">保存设置</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<div id="wb-palette" class="wb-palette" hidden>
+  <div class="wb-palette-box" role="dialog" aria-modal="true" aria-label="命令面板">
+    <input id="wb-palette-input" type="search" autocomplete="off" spellcheck="false" placeholder="搜索任务、视图或命令…" aria-label="搜索命令">
+    <div id="wb-palette-list" class="wb-palette-list" role="listbox"></div>
+    <footer class="wb-palette-foot"><span>↑↓ 选择</span><span>Enter 执行</span><span>Esc 关闭</span></footer>
+  </div>
+</div>
+
+<dialog id="wb-report" class="wb-report-dialog" aria-labelledby="wb-report-title">
+  <header class="wb-report-head">
+    <div><h2 id="wb-report-title">今日复盘</h2><p id="wb-report-day" class="wb-muted"></p></div>
+    <button id="wb-report-close" type="button" class="wb-quiet">关闭</button>
+  </header>
+  <div id="wb-report-body" class="wb-report-body">正在生成…</div>
+  <footer class="wb-report-actions">
+    <span id="wb-report-status" class="wb-note" role="status"></span>
+    <button id="wb-report-refresh" type="button" class="wb-secondary">重新生成</button>
+  </footer>
+</dialog>
+<div id="wb-toast" class="wb-toast" role="status" hidden></div>
+<div id="wb-error" class="wb-error" role="alert" hidden></div>
+</body>
+</html>

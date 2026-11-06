@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安装 / 使用说明（先看这里）
+    url: https://github.com/RKKKKK/BigFatFish#readme
+    about: 安装、停用与回滚步骤；大多数“装了但大肥鱼不出现”的问题这里已有答案。
+  - name: 安全漏洞（请勿公开提交）
+    url: https://github.com/RKKKKK/BigFatFish/blob/main/SECURITY.md
+    about: 私密报告安全问题的渠道与处理时限。
+  - name: 上游 DSH 网页版小鲸鱼
+    url: https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget
+    about: 如果你要装的是“住在 DSH 网页里”的小鲸鱼，请到上游仓库。

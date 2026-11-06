@@ -1,0 +1,151 @@
+/* 三套主题：海盐汽水（默认）、深海夜光、女仆墨蓝。界面上的颜色、圆角和阴影都取自这些变量；
+   theme.js 在页面绘制前把选择写到 <html data-theme>。 */
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-family: var(--font);
+}
+
+/* A 海盐汽水：白底配天蓝，柔和的蓝色阴影，胶囊形按钮和开关。 */
+:root, :root[data-theme="soda"] {
+  --scheme: light;
+  --surface: #ffffff; --surface-2: #f2f6fc; --surface-3: #e9f1fd;
+  --line: #e4ebf4; --line-strong: #d0dcec;
+  --ink: #14294b; --ink-2: #4b5f80; --ink-3: #66768f;
+  --accent: #1f6fe5; --accent-hover: #175fd0; --accent-ink: #ffffff; --accent-soft: #e8f1ff; --accent-text: #1a62d1;
+  --fill-ok: linear-gradient(180deg, #62a6ff, #2f7cf0); --fill-warn: linear-gradient(180deg, #ffc154, #f39a14); --fill-low: linear-gradient(180deg, #ff7d74, #ea4a43);
+  --glow-ok: none; --glow-warn: none; --glow-low: none;
+  --warn-text: #a35f06; --low-text: #c8352b;
+  --track: #e7eef9; --track-border: 0;
+  --r-panel: 18px; --r-pop: 14px; --r-ctl: 10px; --r-btn: 999px; --r-card: 14px; --r-meter: 11px; --r-tabs: 999px; --r-reply: 22px; --r-toast: 999px;
+  --panel-border: 1px solid rgba(20, 41, 75, .07);
+  --panel-shadow: 0 1px 2px rgba(20, 41, 75, .05), 0 16px 40px -12px rgba(31, 90, 180, .30);
+  --pop-shadow: 0 1px 2px rgba(20, 41, 75, .06), 0 12px 28px -8px rgba(31, 90, 180, .30);
+  --input-bg: #f5f8fd; --ctl-border: 1px solid #dbe4f0; --focus-ring: 0 0 0 3px rgba(31, 111, 229, .22);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2366768f' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --btn-primary-border: 0; --btn-primary-shadow: 0 6px 14px -6px rgba(31, 111, 229, .65);
+  --btn2-bg: #eef3fb; --btn2-ink: #2a4470; --btn2-border: 1px solid transparent; --btn2-shadow: none; --btn2-hover: #e2ebf8;
+  --tag-bg: #eef3fb; --tag-ink: #4b5f80; --tag-border: 0;
+  --current-bg: #e8f1ff; --current-ink: #1a62d1; --current-border: 0;
+  --tabs-bg: #eef3fb; --tabs-border: 0; --tab-on-bg: #ffffff; --tab-on-ink: #14294b; --tab-on-shadow: 0 1px 3px rgba(20, 41, 75, .14);
+  --card-bg: #f8fafe; --card-border: 1px solid #e8eef6;
+  --chart-track: #eef3fa; --chart-unknown-2: #e0e8f3; --chart-bar: #8dbbfb; --chart-bar-2: #bcd6fd; --chart-pet: #1f6fe5;
+  --switch-off: #d3dceb; --switch-on: #1f6fe5; --switch-border: 0; --switch-knob: #ffffff; --switch-knob-shadow: 0 1px 3px rgba(20, 41, 75, .3); --switch-pad: 3px;
+  --thumb-bg: #ffffff; --thumb-border: 0; --thumb-shadow: 0 1px 4px rgba(20, 41, 75, .35), 0 0 0 4px rgba(31, 111, 229, .14); --range-fill: #1f6fe5;
+  --bubble-fill: #ffffff; --bubble-stroke: #c4d8f6; --bubble-sw: 8px; --bubble-filter: drop-shadow(0 8px 12px rgba(31, 90, 180, .22));
+  --pop-text: #4b5f80; --pop-num: #14294b; --pop-hint: #66768f; --pop-cost: #d1453b; --pop-glow: none;
+  --reply-bg: #ffffff; --reply-border: 1.5px solid #d3e3fa; --reply-shadow: 0 18px 36px -14px rgba(31, 90, 180, .38);
+  --meter-bg: rgba(255, 255, 255, .97); --meter-border: 1px solid rgba(20, 41, 75, .06); --meter-shadow: 0 8px 18px -8px rgba(31, 90, 180, .45);
+  --timer-bg: #ffffff; --timer-ink: #1a62d1; --timer-border: 1px solid #d6e5fb; --timer-shadow: 0 6px 14px -8px rgba(31, 90, 180, .5);
+  --petmenu-bg: rgba(255, 255, 255, .96); --petmenu-ink: #2a4470; --petmenu-border: 1px solid rgba(20, 41, 75, .1); --petmenu-shadow: 0 4px 10px -4px rgba(31, 90, 180, .5); --petmenu-r: 50%;
+  --toast-bg: #14294b; --toast-ink: #ffffff; --toast-border: 0; --toast-shadow: 0 14px 30px -10px rgba(20, 41, 75, .55);
+  --me-bg: #1f6fe5; --me-ink: #ffffff; --me-border: 0; --bot-bg: #f0f5fc; --bot-ink: #14294b; --bot-border: 0;
+  --avatar-bg: #e3ecf9; --avatar-border: 0;
+  --tile-bg: #f2f6fc; --tile-ink: #14294b; --tile-icon: #1f6fe5; --tile-border: 1px solid transparent; --tile-shadow: none; --tile-hover: #e6eefb;
+  --backdrop: rgba(20, 41, 75, .32);
+  --notice-bg: #fff5e5; --notice-ink: #8a5a12;
+  --scroll-thumb: rgba(20, 41, 75, .18);
+}
+
+/* B 深海夜光：深海军蓝面板，额度条和数字带一点荧光。 */
+:root[data-theme="abyss"] {
+  --scheme: dark;
+  --surface: #111c37; --surface-2: #0c162d; --surface-3: #1a2a50;
+  --line: rgba(140, 175, 255, .12); --line-strong: rgba(140, 175, 255, .24);
+  --ink: #e9f0ff; --ink-2: #adbcdf; --ink-3: #8292ba;
+  --accent: #5aa9ff; --accent-hover: #79baff; --accent-ink: #041330; --accent-soft: rgba(90, 169, 255, .16); --accent-text: #86c3ff;
+  --fill-ok: linear-gradient(90deg, #3d7dff, #3fd6ec); --fill-warn: linear-gradient(90deg, #f39a2b, #ffc760); --fill-low: linear-gradient(90deg, #ff4d6d, #ff8b8b);
+  --glow-ok: 0 0 8px rgba(63, 214, 236, .55); --glow-warn: 0 0 8px rgba(255, 180, 70, .5); --glow-low: 0 0 8px rgba(255, 90, 110, .55);
+  --warn-text: #ffc66b; --low-text: #ff8f9f;
+  --track: rgba(140, 175, 255, .14); --track-border: 0;
+  --r-panel: 16px; --r-pop: 12px; --r-ctl: 10px; --r-btn: 10px; --r-card: 12px; --r-meter: 10px; --r-tabs: 12px; --r-reply: 20px; --r-toast: 12px;
+  --panel-border: 1px solid rgba(140, 180, 255, .18);
+  --panel-shadow: 0 28px 56px -20px rgba(0, 0, 0, .75), 0 0 0 1px rgba(0, 0, 0, .25);
+  --pop-shadow: 0 16px 36px -10px rgba(0, 0, 0, .7), 0 0 0 1px rgba(0, 0, 0, .2);
+  --input-bg: #0b1429; --ctl-border: 1px solid rgba(140, 175, 255, .22); --focus-ring: 0 0 0 3px rgba(90, 169, 255, .30);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238292ba' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --btn-primary-border: 0; --btn-primary-shadow: 0 0 0 1px rgba(120, 190, 255, .5), 0 8px 22px -8px rgba(90, 169, 255, .8);
+  --btn2-bg: rgba(124, 170, 255, .10); --btn2-ink: #c6d4f2; --btn2-border: 1px solid rgba(140, 180, 255, .18); --btn2-shadow: none; --btn2-hover: rgba(124, 170, 255, .18);
+  --tag-bg: rgba(124, 170, 255, .12); --tag-ink: #adc4ef; --tag-border: 0;
+  --current-bg: rgba(63, 214, 236, .12); --current-ink: #6fe3f3; --current-border: 1px solid rgba(63, 214, 236, .32);
+  --tabs-bg: #0b1429; --tabs-border: 1px solid rgba(140, 175, 255, .14); --tab-on-bg: #1f3263; --tab-on-ink: #ffffff; --tab-on-shadow: 0 0 0 1px rgba(120, 180, 255, .35), 0 4px 12px -4px rgba(90, 169, 255, .5);
+  --card-bg: rgba(255, 255, 255, .025); --card-border: 1px solid rgba(140, 175, 255, .12);
+  --chart-track: rgba(140, 175, 255, .07); --chart-unknown-2: rgba(140, 175, 255, .14); --chart-bar: #2f62c9; --chart-bar-2: #22478f; --chart-pet: #3fd6ec;
+  --switch-off: rgba(140, 175, 255, .22); --switch-on: #3fa0ff; --switch-border: 0; --switch-knob: #ffffff; --switch-knob-shadow: 0 1px 3px rgba(0, 0, 0, .5); --switch-pad: 3px;
+  --thumb-bg: #e9f0ff; --thumb-border: 0; --thumb-shadow: 0 0 0 4px rgba(90, 169, 255, .22), 0 0 12px rgba(90, 169, 255, .6); --range-fill: #5aa9ff;
+  --bubble-fill: #101b37; --bubble-stroke: #4d9bff; --bubble-sw: 7px; --bubble-filter: drop-shadow(0 0 10px rgba(77, 155, 255, .5));
+  --pop-text: #9fc8ff; --pop-num: #ffffff; --pop-hint: #8292ba; --pop-cost: #ff8f9f; --pop-glow: 0 0 18px rgba(120, 190, 255, .55);
+  --reply-bg: #101b37; --reply-border: 1px solid rgba(110, 170, 255, .5);
+  --reply-shadow: 0 0 0 4px rgba(77, 155, 255, .07), 0 0 28px -6px rgba(77, 155, 255, .55), 0 24px 40px -16px rgba(0, 0, 0, .7);
+  --meter-bg: rgba(14, 23, 46, .95); --meter-border: 1px solid rgba(110, 170, 255, .28); --meter-shadow: 0 10px 22px -10px rgba(0, 0, 0, .8);
+  --timer-bg: rgba(10, 20, 40, .94); --timer-ink: #7fe6f5; --timer-border: 1px solid rgba(63, 214, 236, .4); --timer-shadow: 0 0 14px -4px rgba(63, 214, 236, .6);
+  --petmenu-bg: rgba(14, 23, 46, .92); --petmenu-ink: #cfe0ff; --petmenu-border: 1px solid rgba(110, 170, 255, .35); --petmenu-shadow: 0 0 12px -2px rgba(77, 155, 255, .5); --petmenu-r: 9px;
+  --toast-bg: #15244a; --toast-ink: #e9f0ff; --toast-border: 1px solid rgba(110, 170, 255, .35); --toast-shadow: 0 0 30px -8px rgba(77, 155, 255, .6), 0 16px 30px -12px rgba(0, 0, 0, .6);
+  --me-bg: #2a66d6; --me-ink: #ffffff; --me-border: 0; --bot-bg: #1a2a50; --bot-ink: #e9f0ff; --bot-border: 1px solid rgba(140, 180, 255, .14);
+  --avatar-bg: #1a2a50; --avatar-border: 1px solid rgba(110, 170, 255, .35);
+  --tile-bg: rgba(124, 170, 255, .08); --tile-ink: #e9f0ff; --tile-icon: #6fe3f3; --tile-border: 1px solid rgba(140, 180, 255, .16); --tile-shadow: none; --tile-hover: rgba(124, 170, 255, .15);
+  --backdrop: rgba(3, 8, 20, .55);
+  --notice-bg: rgba(255, 182, 72, .12); --notice-ink: #ffc66b;
+  --scroll-thumb: rgba(140, 175, 255, .22);
+}
+
+/* C 女仆墨蓝：立绘的墨蓝描边，头饰的蕾丝花边，发饰的小蝴蝶结，按钮带实色投影。 */
+:root[data-theme="lace"] {
+  --scheme: light;
+  --navy: #1f2d6e; --ribbon: #4ab1e4;
+  --surface: #ffffff; --surface-2: #f0f3ff; --surface-3: #e3e8fc;
+  --line: #dde3f6; --line-strong: #c5ceef;
+  --ink: #1f2d6e; --ink-2: #47569a; --ink-3: #5e6aa0;
+  --accent: #1f2d6e; --accent-hover: #2b3c8a; --accent-ink: #ffffff; --accent-soft: #e3e8fc; --accent-text: #2c46c0;
+  --fill-ok: #5677e6; --fill-warn: #f7b53d; --fill-low: #ef6767;
+  --glow-ok: none; --glow-warn: none; --glow-low: none;
+  --warn-text: #9a5800; --low-text: #c03636;
+  --track: #ffffff; --track-border: 1.5px solid #1f2d6e;
+  --r-panel: 20px; --r-pop: 14px; --r-ctl: 12px; --r-btn: 999px; --r-card: 16px; --r-meter: 11px; --r-tabs: 999px; --r-reply: 28px; --r-toast: 999px;
+  --panel-border: 2px solid #1f2d6e;
+  --panel-shadow: 0 3px 0 #1f2d6e, 0 20px 30px -18px rgba(31, 45, 110, .5);
+  --pop-shadow: 0 3px 0 #1f2d6e, 0 12px 24px -14px rgba(31, 45, 110, .45);
+  --input-bg: #ffffff; --ctl-border: 2px solid #cdd5f1; --focus-ring: 0 0 0 3px rgba(74, 177, 228, .35);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f2d6e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --btn-primary-border: 2px solid #1f2d6e; --btn-primary-shadow: 0 3px 0 #0f1847;
+  --btn2-bg: #ffffff; --btn2-ink: #1f2d6e; --btn2-border: 2px solid #1f2d6e; --btn2-shadow: 0 2px 0 #1f2d6e; --btn2-hover: #f0f3ff;
+  --tag-bg: #e3f3fb; --tag-ink: #1d6b93; --tag-border: 1.5px solid #9fd3ee;
+  --current-bg: #1f2d6e; --current-ink: #ffffff; --current-border: 0;
+  --tabs-bg: #ffffff; --tabs-border: 2px solid #1f2d6e; --tab-on-bg: #1f2d6e; --tab-on-ink: #ffffff; --tab-on-shadow: none;
+  --card-bg: #ffffff; --card-border: 2px solid #d3daf4;
+  --chart-track: #f0f3ff; --chart-unknown-2: #e1e7fb; --chart-bar: #9bb0f2; --chart-bar-2: #c6d1f7; --chart-pet: #1f2d6e;
+  --switch-off: #ffffff; --switch-on: #5677e6; --switch-border: 2px solid #1f2d6e; --switch-knob: #ffffff; --switch-knob-shadow: 0 0 0 2px #1f2d6e; --switch-pad: 1px;
+  --thumb-bg: #ffffff; --thumb-border: 2px solid #1f2d6e; --thumb-shadow: 0 2px 0 #1f2d6e; --range-fill: #5677e6;
+  --bubble-fill: #ffffff; --bubble-stroke: #1f2d6e; --bubble-sw: 16px; --bubble-filter: drop-shadow(0 5px 0 #cdd6f6);
+  --pop-text: #47569a; --pop-num: #1f2d6e; --pop-hint: #5e6aa0; --pop-cost: #c03636; --pop-glow: none;
+  --reply-bg: #ffffff; --reply-border: 2.5px solid #1f2d6e; --reply-shadow: 0 5px 0 #cdd6f6;
+  --meter-bg: #ffffff; --meter-border: 2px solid #1f2d6e; --meter-shadow: 0 3px 0 #1f2d6e;
+  --timer-bg: #ffffff; --timer-ink: #1f2d6e; --timer-border: 2px solid #1f2d6e; --timer-shadow: 0 2px 0 #1f2d6e;
+  --petmenu-bg: #1f2d6e; --petmenu-ink: #ffffff; --petmenu-border: 2px solid #ffffff; --petmenu-shadow: 0 2px 0 rgba(31, 45, 110, .4); --petmenu-r: 9px;
+  --toast-bg: #1f2d6e; --toast-ink: #ffffff; --toast-border: 2px solid #1f2d6e; --toast-shadow: 0 4px 0 #0f1847;
+  --me-bg: #1f2d6e; --me-ink: #ffffff; --me-border: 2px solid #1f2d6e; --bot-bg: #ffffff; --bot-ink: #1f2d6e; --bot-border: 2px solid #1f2d6e;
+  --avatar-bg: #e3e8fc; --avatar-border: 2px solid #1f2d6e;
+  --tile-bg: #f0f3ff; --tile-ink: #1f2d6e; --tile-icon: #2c46c0; --tile-border: 2px solid #1f2d6e; --tile-shadow: 0 3px 0 #1f2d6e; --tile-hover: #e3e8fc;
+  --backdrop: rgba(31, 45, 110, .28);
+  --notice-bg: #fff4dc; --notice-ink: #8a5200;
+  --scroll-thumb: rgba(31, 45, 110, .22);
+}
+
+/* 深海夜光：面板上沿一道水面反光。 */
+:root[data-theme="abyss"] :is(.chat-composer, .quota-overview, .dshwv-menu, dialog)::before {
+  content: ""; position: absolute; top: 0; left: 28px; right: 28px; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(150, 205, 255, .85), transparent);
+}
+
+/* 女仆墨蓝：标题栏是头饰的蕾丝花边，标题前有发饰的蝴蝶结。 */
+:root[data-theme="lace"] :is(.chat-header, .quota-overview-head, .dialog-header) {
+  position: relative; background: var(--surface-2);
+  border-radius: calc(var(--r-panel) - 2px) calc(var(--r-panel) - 2px) 0 0;
+}
+:root[data-theme="lace"] :is(.chat-header, .quota-overview-head, .dialog-header)::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 7px; pointer-events: none;
+  background: radial-gradient(circle at 7px 0, var(--surface-2) 6.5px, transparent 7px) 0 0 / 14px 7px repeat-x;
+}
+:root[data-theme="lace"] :is(.chat-header strong, .quota-overview-head strong, .dialog-header h2)::before {
+  content: ""; display: inline-block; width: 21px; height: 14px; margin-right: 7px; vertical-align: -2px; flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'%3E%3Cg stroke='%231f2d6e' stroke-width='1.6' stroke-linejoin='round'%3E%3Cpath fill='%234ab1e4' d='M11 8 3.2 2.6C2 1.8 1 2.4 1 3.8v8.4c0 1.4 1 2 2.2 1.2Z'/%3E%3Cpath fill='%234ab1e4' d='M13 8l7.8-5.4C22 1.8 23 2.4 23 3.8v8.4c0 1.4-1 2-2.2 1.2Z'/%3E%3Crect fill='%232e8fc4' x='9.2' y='5.2' width='5.6' height='5.6' rx='1.8'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}

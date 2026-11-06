@@ -1,0 +1,100 @@
+/* The page, dialogs, form controls and the toast. Colors come from theme.css. */
+* { box-sizing: border-box; }
+html, body { margin: 0; background: transparent !important; overflow: hidden; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+
+/* Buttons: primary, quiet (secondary) and icon-only. */
+.primary, .quiet {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 34px; padding: 0 16px;
+  border-radius: var(--r-btn); font-size: 13px; font-weight: 650; line-height: 1.2; white-space: nowrap;
+  transition: background .15s, transform .08s, box-shadow .15s;
+}
+.primary { background: var(--accent); color: var(--accent-ink); border: var(--btn-primary-border); box-shadow: var(--btn-primary-shadow); }
+.primary:hover { background: var(--accent-hover); }
+.quiet { background: var(--btn2-bg); color: var(--btn2-ink); border: var(--btn2-border); box-shadow: var(--btn2-shadow); }
+.quiet:hover { background: var(--btn2-hover); }
+:is(.primary, .quiet):disabled { opacity: .55; cursor: default; }
+:root[data-theme="lace"] :is(.primary, .quiet):active:not(:disabled) { transform: translateY(2px); box-shadow: none; }
+.icon-button {
+  display: inline-grid; place-items: center; flex: none; width: 30px; height: 30px; padding: 0;
+  border: 0; border-radius: 9px; background: none; color: var(--ink-3); font-size: 22px; line-height: 1;
+}
+.icon-button:hover { background: var(--surface-3); color: var(--ink); }
+.icon-button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.notice { padding: 10px 12px; background: var(--notice-bg); color: var(--notice-ink); border-radius: var(--r-ctl); font-size: 12px; line-height: 1.6; }
+
+/* Dialogs: 会话设置 and 额度管理. */
+dialog {
+  --dlg-py: 24px; --dlg-px: 26px;
+  width: min(690px, 94vw); max-height: 89vh; padding: 0; z-index: 2147483647;
+  background: var(--surface); color: var(--ink); border: var(--panel-border); border-radius: var(--r-panel); box-shadow: var(--panel-shadow);
+  font-family: var(--font); color-scheme: var(--scheme);
+  scrollbar-width: thin; scrollbar-color: var(--scroll-thumb) transparent;
+}
+dialog::backdrop { background: var(--backdrop); backdrop-filter: blur(3px); }
+dialog form { padding: var(--dlg-py) var(--dlg-px); }
+.dialog-header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 18px; }
+.dialog-header h2 { display: flex; align-items: center; margin: 0; font-size: 18px; font-weight: 750; }
+.dialog-header p, .help { font-size: 12px; line-height: 1.7; color: var(--ink-3); }
+.dialog-header p { margin: 6px 0 0; }
+:root[data-theme="lace"] dialog form > .dialog-header { margin: calc(var(--dlg-py) * -1) calc(var(--dlg-px) * -1) 24px; padding: 18px var(--dlg-px) 14px; }
+
+/* Fields, with no specificity of their own so a component's class wins.
+   Checkboxes in a .check label are switches. */
+:where(label) { display: block; margin: 14px 0 0; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+:where(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]), select, textarea) {
+  width: 100%; min-width: 0; margin-top: 6px; border: var(--ctl-border); border-radius: var(--r-ctl);
+  background: var(--input-bg); color: var(--ink); font-size: 13px; font-weight: 400;
+}
+:where(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]), select) { height: 36px; padding: 0 11px; }
+:where(select) { -webkit-appearance: none; appearance: none; padding-right: 30px; background: var(--input-bg) var(--chev) no-repeat right 10px center / 12px 12px; }
+:where(textarea) { padding: 9px 11px; line-height: 1.65; }
+:where(input, textarea)::placeholder { color: var(--ink-3); }
+:where(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea):focus { outline: 0; }
+:where(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea):focus-visible { border-color: var(--accent); box-shadow: var(--focus-ring); }
+:root[data-theme="lace"] :where(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea):focus-visible { border-color: var(--navy); }
+:where(label) small { display: block; margin-top: 6px; font-size: 11px; font-weight: 400; line-height: 1.6; color: var(--ink-3); }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+:where(details) { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); }
+:where(summary) { font-size: 12px; font-weight: 600; color: var(--accent-text); cursor: pointer; }
+.check { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 13px; font-weight: 500; line-height: 1.5; color: var(--ink); cursor: pointer; }
+.check input[type="checkbox"] {
+  -webkit-appearance: none; appearance: none; position: relative; flex: none; width: 36px; height: 22px; margin: 0;
+  border-radius: 99px; background: var(--switch-off); border: var(--switch-border); cursor: pointer; transition: background .2s;
+}
+.check input[type="checkbox"]::before {
+  content: ""; position: absolute; top: var(--switch-pad); left: var(--switch-pad); width: 16px; height: 16px; border-radius: 50%;
+  background: var(--switch-knob); box-shadow: var(--switch-knob-shadow); transition: transform .22s cubic-bezier(.3, 1.4, .5, 1);
+}
+.check input[type="checkbox"]:checked { background: var(--switch-on); }
+.check input[type="checkbox"]:checked::before { transform: translateX(14px); }
+.check input[type="checkbox"]:focus-visible { outline: 0; box-shadow: var(--focus-ring); }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+
+/* A short message at the top of the screen. */
+#toast {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 2147483647; max-width: min(600px, 90vw);
+  padding: 10px 20px; border-radius: var(--r-toast); background: var(--toast-bg); color: var(--toast-ink); border: var(--toast-border);
+  box-shadow: var(--toast-shadow); font-family: var(--font); font-size: 13px; font-weight: 600; line-height: 1.55;
+}
+
+/* The transparent desktop overlay. Translation, mirror and pressed-body
+   transforms remain on separate layers. */
+html.desktop, html.desktop body { background: transparent !important; overflow: hidden; }
+.desktop .dshwv-root { filter: drop-shadow(0 3px 6px #0002); }
+.dshwv-position { position: fixed; left: 0; top: 0; width: 0; height: 0; pointer-events: none; z-index: 9999; transition: transform .16s ease; will-change: transform; }
+.desktop .dshwv-root { position: absolute; left: 0; top: 0; right: auto; bottom: auto; transition: transform .3s ease !important; isolation: isolate; }
+.desktop .dshwv-body { will-change: transform; }
+.desktop .dshwv-img { image-rendering: auto; backface-visibility: hidden; }
+.desktop .dshwv-pop svg { shape-rendering: geometricPrecision; }
+.desktop .dshwv-text { transition: opacity .16s ease, transform .3s ease; isolation: isolate; overflow: visible; }
+.desktop .dshwv-pop.dshwv-pop-open .dshwv-text { transition: opacity .16s ease .36s, transform .3s ease; }
+.dshwv-frame { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; will-change: opacity; overflow: visible; }
+
+@media (max-width: 620px) {
+  .field-grid { grid-template-columns: 1fr; }
+  dialog { --dlg-py: 19px; --dlg-px: 19px; }
+}

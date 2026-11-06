@@ -1,0 +1,51 @@
+{
+  "name": "api-balance-whale",
+  "version": "0.3.0",
+  "description": "BigFatFish: a desktop pet that watches Codex and Claude Code quota, API balances and every coding session, and chats as a character. Forked from the For-Codex branch (0.2.4) of MeteorNOX/DeepSeek-Balance-Whale-Widget.",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    ".codex-plugin",
+    ".mcp.json",
+    "assets",
+    "desktop",
+    "docs",
+    "lib",
+    "runtime",
+    "scripts",
+    "skills",
+    "vendor",
+    "README.md",
+    "PROVENANCE.md",
+    "THIRD_PARTY_NOTICES.md",
+    "SECURITY.md",
+    "启动桌面挂件.app",
+    "*.cmd",
+    "*.command"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RKKKKK/BigFatFish.git",
+    "directory": "."
+  },
+  "bugs": {
+    "url": "https://github.com/RKKKKK/BigFatFish/issues"
+  },
+  "homepage": "https://github.com/RKKKKK/BigFatFish#readme",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:desktop": "node scripts/smoke-desktop.mjs",
+    "check": "node scripts/check-source.mjs",
+    "start": "node scripts/control.mjs open",
+    "desktop": "node scripts/control.mjs desktop",
+    "install:desktop": "node scripts/install-desktop.mjs",
+    "install:mac": "node scripts/install-macos.mjs",
+    "uninstall:mac": "node scripts/uninstall-macos.mjs",
+    "install:approvals": "node scripts/manage-approval-hook.mjs install",
+    "uninstall:approvals": "node scripts/manage-approval-hook.mjs uninstall",
+    "probe:mac": "node scripts/probe-macos.mjs"
+  }
+}
